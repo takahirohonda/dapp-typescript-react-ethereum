@@ -1,9 +1,9 @@
-pragma solidity 0.5.16;
+pragma solidity >=0.5.16;
 
 contract Gaming {
     /* Our Online gaming contract */
     address owner;
-    bool online;
+    bool public online;
 
 
     struct Player {
@@ -14,12 +14,13 @@ contract Gaming {
         uint losses;
     }
 
-    mapping (uint => Player) players;
+    mapping (uint => Player) public players;
     
     
     constructor() public payable {
         owner = msg.sender;
         online = true;
+        players[0] = Player(msg.sender, "test", 10, 2, 4);
     }
 
     function mysteryNumber() internal view returns (uint) {
