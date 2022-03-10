@@ -6,4 +6,4 @@
 
 1. Creating React App project with `npx create-react-app my-app --template typescript`.
 
-2. Add `eslint` and `styled-component`.
+2. Add & configure `eslint` and add `styled-component`.
