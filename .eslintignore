@@ -4,3 +4,4 @@ migrations
 server.js
 truffle-config.js
 truffle.js
+.eslintrc.js
