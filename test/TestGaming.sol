@@ -15,27 +15,25 @@ contract TestGaming {
     function testPlayerWonGuessHigher() public {
         bool expected = true;
         bool result = gaming.determineWinner(5, 4, true);
-        Assert.equal(expected, result, "Player won by guessing higher");
+        Assert.equal(expected, result, "Player won by guessing higher when guess = true");
     }
 
     function testPlayerLostGuessLower() public {
         bool expected = false;
-        bool result = gaming.determineWinner(5, 4, false);
-        Assert.equal(expected, result, "Player lost by guessing lower");
+        bool result = gaming.determineWinner(4, 5, true);
+        Assert.equal(expected, result, "Player lost by guessing lower when guess = true");
     }
 
-    function testPlayerAdded() public {
-        address playerAddress;
-        string memory playerName;
-        uint playerBalance;
-        uint wins;
-        uint losses;
+    function testPlayerWonGuessLower() public {
+        bool expected = true;
+        bool result = gaming.determineWinner(4, 5, false);
+        Assert.equal(expected, result, "Player lost by guessing lower when guess = false");
+    }
 
-        (playerAddress, playerName, playerBalance, wins, losses) = gaming.players(0);
-        Assert.equal(playerName, "test", "Player has a correct name");
-        Assert.equal(playerBalance, 10, "Player has correct balance");
-        Assert.equal(wins, 2, "Player has correct wins");
-        Assert.equal(losses, 4, "Player has correct losses");
+    function testPlayerLostGuessHigher() public {
+        bool expected = false;
+        bool result = gaming.determineWinner(5, 4, false);
+        Assert.equal(expected, result, "Player won by guessing lower when guess = false");
     }
 
     function testGameIsOnline() public {
