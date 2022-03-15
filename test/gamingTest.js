@@ -7,7 +7,7 @@ contract('Gaming', async (accounts) => {
 
   before(async () => {
     gaming = await Gaming.deployed()
-    const fundGame = await gaming.fundGame({
+    await gaming.fundGame({
       from: owner,
       value: web3.utils.toWei('10', 'ether'),
     })
@@ -40,5 +40,41 @@ contract('Gaming', async (accounts) => {
     })
     const playerStats = await gaming.players(player1)
     assert.equal(playerStats[0].toNumber(), 1, 'The player should have 1 win')
+  })
+
+  it('Should withdrawFund to the owner', async () => {
+    const initialBalance = await web3.utils.fromWei(
+      (await web3.eth.getBalance(owner)).toString(),
+      'ether'
+    )
+    const initialContract = await web3.utils.fromWei(
+      (await web3.eth.getBalance(gaming.address)).toString(),
+      'ether'
+    )
+    console.log(
+      `Owner balance is ${initialBalance} and contract balance is ${initialContract}`
+    )
+
+    await gaming.withdrawFunds()
+
+    const postBalance = await web3.utils.fromWei(
+      (await web3.eth.getBalance(owner)).toString(),
+      'ether'
+    )
+
+    const postContract = await web3.utils.fromWei(
+      (await web3.eth.getBalance(gaming.address)).toString(),
+      'ether'
+    )
+
+    console.log(
+      `Owner balance is ${postBalance} and contract balance is ${postContract}`
+    )
+
+    assert.isAtLeast(
+      postBalance - initialBalance,
+      initialContract - 0.1,
+      'Contract funds should have transferred to the owner'
+    )
   })
 })
