@@ -1,10 +1,12 @@
 import './App.css'
 
+import { Connect } from './components/connect'
 import logo from './logo.svg'
 
 const App = () => {
   return (
     <div className="App">
+      <Connect />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
